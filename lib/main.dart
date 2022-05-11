@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'task.dart';
 
 void main() {
   runApp(const MyApp());
@@ -26,7 +27,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   bool value = false;
-
+  List<int> s = [];
 void checkBoxCallBack(bool? checkBoxState) {
     if (checkBoxState != null) {
       setState(() {
@@ -34,6 +35,12 @@ void checkBoxCallBack(bool? checkBoxState) {
       });
     }
   }
+void changelist(){
+  setState(() {
+    int i = 3;
+    s.add(i);
+  });
+}
   
   @override
   Widget build(BuildContext context) {
@@ -176,13 +183,9 @@ void checkBoxCallBack(bool? checkBoxState) {
         mainAxisSpacing: 10,
         crossAxisSpacing: 10,
         
-        children: [
-          Container(
-            alignment: Alignment.topLeft,child: cards()),
-          cards(),
-          cards(),
-          cards(),
-        ],
+        children: s.map((e) => InkWell(onTap: () {
+          Navigator.push(context, MaterialPageRoute(builder: (context) => task()),);
+        },child: cards())).toList(),
         
         ),
              )
@@ -193,12 +196,10 @@ void checkBoxCallBack(bool? checkBoxState) {
       ),
     ),
 
-    floatingActionButton: FloatingActionButton(onPressed: (){},backgroundColor: Colors.blueAccent,child: Icon(Icons.add,),),
+    floatingActionButton: FloatingActionButton(onPressed: changelist,backgroundColor: Colors.blueAccent,child: Icon(Icons.add,),),
     );
   }
 }
-
-
 
 
 class cards extends StatefulWidget {
